@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, DollarSign, Star } from 'lucide-react';
+import { Calendar, DollarSign } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,7 +71,7 @@ const TravelPackages = () => {
   ];
 
   return (
-    <section className="py-24 px-8 bg-white">
+    <section className="py-24 px-8 bg-gradient-to-b from-travel-gray to-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-display font-bold text-travel-charcoal mb-4">
@@ -82,16 +82,17 @@ const TravelPackages = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="ml-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg, index) => (
             <div
               key={index}
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
+              className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+              style={{ width: 'calc(100% + 3px)', height: 'calc(24rem + 3px)' }}
             >
-              <div className="relative h-80 overflow-hidden">
+              <div className="relative h-full overflow-hidden">
                 <img
                   src={pkg.image}
                   alt={pkg.country}
@@ -99,36 +100,38 @@ const TravelPackages = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 
-                {/* Badge */}
-                <div className={`absolute top-6 right-6 ${pkg.badgeColor} text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-1`}>
-                  <Star className="w-4 h-4 fill-current" />
-                  {pkg.badge}
-                </div>
-
                 {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-3xl font-display font-bold text-white mb-4">
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl font-display font-bold text-white mb-2">
                     {pkg.country}
                   </h3>
                   
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2 text-white">
-                      <Calendar className="w-5 h-5" />
-                      <span className="text-sm">{pkg.duration}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <DollarSign className="w-5 h-5" />
-                      <span className="text-2xl font-bold">{pkg.price}</span>
-                    </div>
+                  <div className="flex items-center gap-2 text-white/90 mb-2">
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-xs">{pkg.duration}</span>
                   </div>
 
-                  <button className="w-full bg-white text-travel-ocean font-semibold py-3 rounded-xl hover:bg-travel-sky hover:text-white transition-all duration-300 transform hover:scale-105">
-                    Book Now
-                  </button>
+                  <div className="flex items-center gap-2 text-white">
+                    <DollarSign className="w-5 h-5" />
+                    <span className="text-xl font-bold">{pkg.price}</span>
+                  </div>
                 </div>
+
+                {/* Hover effect border */}
+                <div className="absolute inset-0 border-4 border-transparent group-hover:border-travel-sky/50 transition-all duration-500 rounded-3xl" />
               </div>
             </div>
           ))}
+        </div>
+
+        {/* See More Button */}
+        <div className="flex justify-center mt-12">
+          <button className="bg-gradient-to-r from-travel-sky to-travel-ocean text-white px-10 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
+            See More
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

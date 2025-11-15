@@ -60,7 +60,7 @@ const Navbar = () => {
               : 'bg-white text-travel-ocean hover:bg-travel-sky hover:text-white'
           }`}
         >
-          Book Now
+          LOGIN
         </button>
 
         {/* Mobile Menu Button */}

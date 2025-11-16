@@ -1,20 +1,43 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, DollarSign } from 'lucide-react';
+import { Calendar, ArrowRight, Sparkles, MapPin } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TravelPackages = () => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
+    // Header animation
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Cards stagger animation
     cardsRef.current.forEach((card, index) => {
       if (!card) return;
-      
-      gsap.fromTo(card,
+
+      gsap.fromTo(
+        card,
         {
-          y: 80,
+          y: 100,
           opacity: 0,
           scale: 0.95,
         },
@@ -22,7 +45,7 @@ const TravelPackages = () => {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.8,
+          duration: 1,
           delay: index * 0.15,
           ease: 'power3.out',
           scrollTrigger: {
@@ -37,103 +60,280 @@ const TravelPackages = () => {
 
   const packages = [
     {
-      country: 'Santorini, Greece',
+      country: 'Santorini',
+      location: 'Greece',
       image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=1200&q=80',
-      price: '$2,499',
-      duration: '7 Days / 6 Nights',
+      price: '2,499',
+      duration: '7 Days',
+      nights: '6 Nights',
       badge: 'Best Seller',
-      badgeColor: 'bg-travel-coral',
+      description: 'Whitewashed villages and stunning sunsets',
+      highlights: ['Sunset Views', 'Wine Tasting', 'Beach Resorts'],
     },
     {
-      country: 'Bali, Indonesia',
+      country: 'Bali',
+      location: 'Indonesia',
       image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80',
-      price: '$1,899',
-      duration: '6 Days / 5 Nights',
+      price: '1,899',
+      duration: '6 Days',
+      nights: '5 Nights',
       badge: 'Popular',
-      badgeColor: 'bg-travel-sky',
+      description: 'Tropical paradise with rich culture',
+      highlights: ['Temple Tours', 'Rice Terraces', 'Spa Retreats'],
     },
     {
       country: 'Swiss Alps',
+      location: 'Switzerland',
       image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200&q=80',
-      price: '$3,299',
-      duration: '8 Days / 7 Nights',
+      price: '3,299',
+      duration: '8 Days',
+      nights: '7 Nights',
       badge: 'Premium',
-      badgeColor: 'bg-yellow-500',
+      description: 'Majestic mountains and pristine lakes',
+      highlights: ['Mountain Hiking', 'Scenic Trains', 'Luxury Chalets'],
     },
     {
-      country: 'Maldives Paradise',
+      country: 'Maldives',
+      location: 'Indian Ocean',
       image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1200&q=80',
-      price: '$3,999',
-      duration: '5 Days / 4 Nights',
-      badge: 'New',
-      badgeColor: 'bg-green-500',
+      price: '3,999',
+      duration: '5 Days',
+      nights: '4 Nights',
+      badge: 'Luxury',
+      description: 'Crystal waters and overwater villas',
+      highlights: ['Private Villas', 'Diving', 'Spa & Wellness'],
+    },
+    {
+      country: 'Paris',
+      location: 'France',
+      image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1200&q=80',
+      price: '2,799',
+      duration: '6 Days',
+      nights: '5 Nights',
+      badge: 'Romantic',
+      description: 'City of lights and timeless romance',
+      highlights: ['Eiffel Tower', 'Louvre Museum', 'Seine Cruise'],
+    },
+    {
+      country: 'Dubai',
+      location: 'UAE',
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80',
+      price: '2,299',
+      duration: '5 Days',
+      nights: '4 Nights',
+      badge: 'Modern',
+      description: 'Futuristic skyline meets desert adventure',
+      highlights: ['Burj Khalifa', 'Desert Safari', 'Luxury Shopping'],
+    },
+    {
+      country: 'Iceland',
+      location: 'Nordic',
+      image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1200&q=80',
+      price: '3,499',
+      duration: '7 Days',
+      nights: '6 Nights',
+      badge: 'Adventure',
+      description: 'Land of fire, ice, and northern lights',
+      highlights: ['Northern Lights', 'Blue Lagoon', 'Glacier Hiking'],
+    },
+    {
+      country: 'Tokyo',
+      location: 'Japan',
+      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80',
+      price: '2,999',
+      duration: '8 Days',
+      nights: '7 Nights',
+      badge: 'Cultural',
+      description: 'Ancient traditions meet modern innovation',
+      highlights: ['Cherry Blossoms', 'Temples', 'Street Food'],
+    },
+    {
+      country: 'Singapore',
+      location: 'Southeast Asia',
+      image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200&q=80',
+      price: '2,199',
+      duration: '5 Days',
+      nights: '4 Nights',
+      badge: 'Urban',
+      description: 'Garden city with world-class attractions',
+      highlights: ['Marina Bay', 'Gardens by Bay', 'Hawker Food'],
     },
   ];
 
   return (
-    <section className="py-24 px-8 bg-gradient-to-b from-travel-gray to-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-display font-bold text-travel-charcoal mb-4">
-            Featured Travel Packages
+    <section className="relative pt-0 pb-20 px-8 bg-white overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-travel-sky/5 to-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-travel-coral/5 to-amber-500/5 rounded-full blur-3xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Header */}
+        <div ref={headerRef} className="mb-12">
+          <div className="flex items-center gap-4 mb-4">
+            <Sparkles className="w-6 h-6 text-travel-sky" />
+            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">
+              Curated Experiences
+            </span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-4 leading-none">
+            <span className="italic font-light">Featured</span>
+            <br />
+            <span className="bg-gradient-to-r from-travel-sky via-purple-600 to-travel-coral bg-clip-text text-transparent">
+              Travel Packages
+            </span>
           </h2>
-          <p className="text-xl text-gray-600">
-            Handcrafted journeys for unforgettable experiences
+          <p className="text-lg text-gray-600 max-w-2xl">
+            Handcrafted journeys designed for unforgettable experiences
           </p>
         </div>
 
-        <div className="ml-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {packages.map((pkg, index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                if (el) cardsRef.current[index] = el;
-              }}
-              className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
-              style={{ width: 'calc(100% + 3px)', height: 'calc(24rem + 3px)' }}
-            >
-              <div className="relative h-full overflow-hidden">
-                <img
-                  src={pkg.image}
-                  alt={pkg.country}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-2xl font-display font-bold text-white mb-2">
-                    {pkg.country}
-                  </h3>
-                  
-                  <div className="flex items-center gap-2 text-white/90 mb-2">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-xs">{pkg.duration}</span>
-                  </div>
+        {/* Perfect Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[400px] gap-6 mb-16">
+          {packages.map((pkg, index) => {
+            const isHovered = hoveredIndex === index;
+            const isLarge = index === 0; // First card is larger
 
-                  <div className="flex items-center gap-2 text-white">
-                    <DollarSign className="w-5 h-5" />
-                    <span className="text-xl font-bold">{pkg.price}</span>
+            return (
+              <div
+                key={index}
+                ref={(el) => {
+                  if (el) cardsRef.current[index] = el;
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={`group relative overflow-hidden cursor-pointer ${
+                  isLarge ? 'lg:col-span-2 lg:row-span-2' : ''
+                }`}
+                style={{
+                  boxShadow: isHovered
+                    ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    : '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
+                  transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+              >
+                {/* Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.country}
+                    className="w-full h-full object-cover transition-all duration-700"
+                    style={{
+                      transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                      filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
+                    }}
+                  />
+                </div>
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+
+                {/* Badge */}
+                <div className="absolute top-6 right-6 z-10">
+                  <div className="px-4 py-2 bg-white/95 backdrop-blur-md shadow-lg">
+                    <span className="text-xs font-bold text-travel-charcoal uppercase tracking-wider">
+                      {pkg.badge}
+                    </span>
                   </div>
                 </div>
 
-                {/* Hover effect border */}
-                <div className="absolute inset-0 border-4 border-transparent group-hover:border-travel-sky/50 transition-all duration-500 rounded-3xl" />
+                {/* Content */}
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  {/* Location */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <MapPin className="w-4 h-4 text-travel-sky" />
+                    <span className="text-sm text-white/80 font-medium">{pkg.location}</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className={`font-display font-bold text-white mb-3 transition-colors duration-300 ${
+                      isLarge ? 'text-5xl' : 'text-3xl'
+                    } ${isHovered ? 'text-travel-sky' : ''}`}
+                  >
+                    {pkg.country}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-white/80 mb-4 leading-relaxed">{pkg.description}</p>
+
+                  {/* Highlights - Show on hover */}
+                  <div
+                    className={`flex flex-wrap gap-2 mb-4 transition-all duration-500 ${
+                      isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}
+                  >
+                    {pkg.highlights.map((highlight, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 text-xs text-white"
+                      >
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Price & Duration */}
+                  <div className="flex items-end justify-between pt-4 border-t border-white/20">
+                    <div>
+                      <div className="flex items-center gap-2 text-white/70 mb-2">
+                        <Calendar className="w-4 h-4" />
+                        <span className="text-sm">
+                          {pkg.duration} / {pkg.nights}
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-xs text-white/60">From</span>
+                        <span className="text-3xl font-bold text-white">${pkg.price}</span>
+                        <span className="text-xs text-white/60">/person</span>
+                      </div>
+                    </div>
+
+                    {/* Book Button */}
+                    <button
+                      className={`flex items-center gap-2 px-6 py-3 bg-white text-travel-charcoal font-semibold transition-all duration-500 hover:bg-travel-sky hover:text-white ${
+                        isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                      }`}
+                    >
+                      <span>Book Now</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Shine Effect */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background:
+                      'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%)',
+                    backgroundSize: '200% 200%',
+                    animation: isHovered ? 'shine 1.5s ease-in-out' : 'none',
+                  }}
+                />
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* See More Button */}
-        <div className="flex justify-center mt-12">
-          <button className="bg-gradient-to-r from-travel-sky to-travel-ocean text-white px-10 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-            See More
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+        {/* CTA */}
+        <div className="text-center">
+          <button className="group px-12 py-5 bg-travel-charcoal text-white font-semibold text-lg hover:bg-gradient-to-r hover:from-travel-sky hover:to-travel-ocean transition-all duration-300 hover:shadow-xl flex items-center gap-3 mx-auto">
+            <span>View All Packages</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
           </button>
         </div>
       </div>
+
+      <style>{`
+        @keyframes shine {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+      `}</style>
     </section>
   );
 };

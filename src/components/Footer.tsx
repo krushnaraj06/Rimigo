@@ -1,95 +1,257 @@
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Facebook, Instagram, Twitter, Youtube, Linkedin, ArrowRight, Palmtree, Star, MapPin, DollarSign } from 'lucide-react';
+import RimigoWhiteLogo from '../assets/RimigoWhiteLogo.png';
+import ImageCollage from './ImageCollage';
+
+gsap.registerPlugin(ScrollTrigger);
+
+<ImageCollage/>
 
 const Footer = () => {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [counters, setCounters] = useState({ vacations: 0, rating: 0, countries: 0, savings: 0 });
+
+  useEffect(() => {
+    if (statsRef.current) {
+      ScrollTrigger.create({
+        trigger: statsRef.current,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.to(counters, {
+            vacations: 242,
+            rating: 4.9,
+            countries: 78,
+            savings: 8354,
+            duration: 2.5,
+            ease: 'power2.out',
+            onUpdate: function () {
+              setCounters({
+                vacations: Math.floor(this.targets()[0].vacations),
+                rating: Math.floor(this.targets()[0].rating * 10) / 10,
+                countries: Math.floor(this.targets()[0].countries),
+                savings: Math.floor(this.targets()[0].savings),
+              });
+            },
+          });
+        },
+      });
+    }
+  }, []);
+
+
   return (
-    <footer className="relative bg-travel-charcoal text-white pt-16 pb-8 overflow-hidden">
-      {/* Faint world map background */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: 'url(https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+    <footer className="relative bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-travel-sky/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-travel-coral/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Logo & About */}
-          <div>
-            <h3 className="text-3xl font-display font-bold mb-4">Rimigo</h3>
-            <p className="text-gray-400 mb-6">
-              Discover the world with premium curated journeys to the most beautiful destinations.
-            </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-travel-sky flex items-center justify-center transition-all duration-300">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-travel-sky flex items-center justify-center transition-all duration-300">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-travel-sky flex items-center justify-center transition-all duration-300">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-travel-sky flex items-center justify-center transition-all duration-300">
-                <Youtube className="w-5 h-5" />
-              </a>
+        {/* Stats Section */}
+        <div ref={statsRef} className="py-16 border-b border-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Vacations */}
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-600/20 mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Palmtree className="w-8 h-8 text-purple-400" />
+              </div>
+              <div className="text-5xl font-bold text-white mb-2">
+                {counters.vacations.toLocaleString()}
+              </div>
+              <div className="text-sm text-gray-400">Vacations</div>
             </div>
-          </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-xl font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Home</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Destinations</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Packages</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">About Us</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Contact</a></li>
-            </ul>
-          </div>
+            {/* Rating */}
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500/20 to-orange-600/20 mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Star className="w-8 h-8 text-yellow-400 fill-current" />
+              </div>
+              <div className="text-5xl font-bold text-white mb-2">
+                {counters.rating.toFixed(1)}
+              </div>
+              <div className="text-sm text-gray-400">Traveller Ratings</div>
+            </div>
 
-          {/* Popular Destinations */}
-          <div>
-            <h4 className="text-xl font-bold mb-4">Popular Destinations</h4>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Santorini, Greece</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Bali, Indonesia</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Swiss Alps</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Paris, France</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Maldives</a></li>
-            </ul>
-          </div>
+            {/* Countries */}
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-600/20 mb-4 group-hover:scale-110 transition-transform duration-300">
+                <MapPin className="w-8 h-8 text-blue-400" />
+              </div>
+              <div className="text-5xl font-bold text-white mb-2">
+                {counters.countries}
+              </div>
+              <div className="text-sm text-gray-400">Countries</div>
+            </div>
 
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-xl font-bold mb-4">Contact Us</h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-travel-sky mt-1 flex-shrink-0" />
-                <span className="text-gray-400">123 Travel Street, Adventure City, AC 12345</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-travel-sky flex-shrink-0" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-travel-sky flex-shrink-0" />
-                <span className="text-gray-400">hello@rimigo.com</span>
-              </li>
-            </ul>
+            {/* Savings */}
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 mb-4 group-hover:scale-110 transition-transform duration-300">
+                <DollarSign className="w-8 h-8 text-green-400" />
+              </div>
+              <div className="text-5xl font-bold text-white mb-2">
+                {counters.savings.toLocaleString()}
+              </div>
+              <div className="text-sm text-gray-400">Average Savings per trip</div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm">
-            © 2024 Rimigo. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-travel-sky transition-colors">Cookie Policy</a>
+        {/* Main Footer Content */}
+        <div className="py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            {/* Logo & Social */}
+            <div className="lg:col-span-2">
+              <img 
+                src={RimigoWhiteLogo} 
+                alt="Rimigo Logo" 
+                className="h-20 mb-6"
+              />
+              <p className="text-sm text-gray-400 mb-6 max-w-sm leading-relaxed">
+                Discover the world with premium curated journeys to the most beautiful destinations.
+              </p>
+              <div className="flex gap-3">
+                <a 
+                  href="#" 
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-travel-sky hover:to-travel-ocean flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-blue-400 hover:to-blue-600 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-4 h-4" />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-blue-600 hover:to-blue-800 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* About Rimigo */}
+            <div>
+              <h4 className="text-sm font-bold mb-4 text-white uppercase tracking-wider">About Rimigo</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Sustainable Tourism
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Contact Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Careers
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Travel Planners */}
+            <div>
+              <h4 className="text-sm font-bold mb-4 text-white uppercase tracking-wider">Travel Planners</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Travel Planners
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Sports Planners
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Event Venues
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="text-sm font-bold mb-4 text-white uppercase tracking-wider">Resources</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Media
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Accessibility
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-400 hover:text-travel-sky transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-travel-sky transition-colors" />
+                    Plan Your Trip
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="py-8 border-t border-b border-white/10 mb-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2">Ready to Start Your Adventure?</h3>
+                <p className="text-gray-400">Join thousands of travelers exploring the world with Rimigo</p>
+              </div>
+              <button className="group px-8 py-4 bg-gradient-to-r from-travel-sky to-travel-ocean text-white font-semibold hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3">
+                <span>Start Now</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <p className="text-gray-400">
+              ©2025 Rimigo USA. All Rights Reserved
+            </p>
+            <div className="flex gap-6">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                Terms of Service
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,120 +1,247 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Play, Heart, Instagram } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 const ImageCollage = () => {
-  const imagesRef = useRef<HTMLDivElement[]>([]);
+  const itemsRef = useRef<HTMLDivElement[]>([]);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    imagesRef.current.forEach((img, index) => {
-      if (!img) return;
-      
-      // Stagger entrance
-      gsap.fromTo(img,
+    // Header animation
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { y: 60, opacity: 0 },
         {
-          scale: 0,
-          rotation: -15,
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+
+    // Items stagger animation
+    itemsRef.current.forEach((item, index) => {
+      if (!item) return;
+
+      gsap.fromTo(
+        item,
+        {
+          scale: 0.8,
           opacity: 0,
         },
         {
           scale: 1,
-          rotation: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: index * 0.1,
-          ease: 'back.out(1.7)',
+          duration: 0.6,
+          delay: index * 0.05,
+          ease: 'power2.out',
           scrollTrigger: {
-            trigger: img,
+            trigger: item,
             start: 'top 90%',
             toggleActions: 'play none none none',
           },
         }
       );
-
-      // Floating animation
-      gsap.to(img, {
-        y: -20,
-        duration: 3 + (index % 3),
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: index * 0.2,
-      });
     });
   }, []);
 
-  const images = [
+  const mediaItems = [
     {
-      src: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80',
-      alt: 'Airport departure',
-      size: 'w-64 h-64',
-      rotation: 'rotate-3',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80',
+      alt: 'Mountain Adventure',
+      likes: '2.4k',
     },
     {
-      src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&q=80',
-      alt: 'Traveler with backpack',
-      size: 'w-48 h-72',
-      rotation: '-rotate-6',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80',
+      alt: 'Beach Sunset',
+      likes: '1.8k',
     },
     {
-      src: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=600&q=80',
-      alt: 'Sunset beach',
-      size: 'w-72 h-48',
-      rotation: 'rotate-2',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80',
+      alt: 'Paris Eiffel Tower',
+      likes: '3.2k',
     },
     {
-      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80',
-      alt: 'Mountain landscape',
-      size: 'w-56 h-56',
-      rotation: '-rotate-3',
+      type: 'video',
+      src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+      alt: 'Desert Safari',
+      likes: '1.5k',
     },
     {
-      src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80',
-      alt: 'City skyline',
-      size: 'w-64 h-80',
-      rotation: 'rotate-6',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
+      alt: 'Mountain Hiking',
+      likes: '2.1k',
     },
     {
-      src: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&q=80',
-      alt: 'Travel photography',
-      size: 'w-60 h-60',
-      rotation: '-rotate-2',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',
+      alt: 'Tropical Beach',
+      likes: '2.9k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=80',
+      alt: 'City Lights',
+      likes: '1.7k',
+    },
+    {
+      type: 'video',
+      src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+      poster: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80',
+      alt: 'Road Trip',
+      likes: '2.6k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80',
+      alt: 'Maldives Paradise',
+      likes: '1.9k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80',
+      alt: 'Northern Lights',
+      likes: '3.5k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=600&q=80',
+      alt: 'Iceland Landscape',
+      likes: '4.1k',
+    },
+    {
+      type: 'video',
+      src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+      poster: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80',
+      alt: 'Beach Waves',
+      likes: '2.3k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80',
+      alt: 'Paris Streets',
+      likes: '2.8k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80',
+      alt: 'Santorini',
+      likes: '3.1k',
+    },
+    {
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80',
+      alt: 'Bali Temple',
+      likes: '2.7k',
     },
   ];
 
   return (
-    <section className="py-24 px-8 bg-gradient-to-b from-travel-gray to-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-display font-bold text-travel-charcoal mb-4">
-            Captured Moments
+    <section className="relative py- bg-white overflow-hidden">
+      <div className="relative z-10">
+        {/* Header */}
+        <div ref={headerRef} className="mb-12 text-center px-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Instagram className="w-6 h-6 text-travel-sky" />
+            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">
+              Follow Our Journey
+            </span>
+          </div>
+          <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-4 leading-none">
+            <span className="italic font-light">Captured</span>{' '}
+            <span className="bg-gradient-to-r from-travel-sky via-purple-600 to-travel-coral bg-clip-text text-transparent">
+              Moments
+            </span>
           </h2>
-          <p className="text-xl text-gray-600">
-            A glimpse into the adventures that await
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Real adventures from real travelers • Tag #RimigoTravel to be featured
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-8">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                if (el) imagesRef.current[index] = el;
-              }}
-              className={`${image.size} ${image.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer`}
-            >
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl bg-white p-3">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+        {/* Instagram-Style Grid - Perfect Squares */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 mb-8">
+          {mediaItems.map((item, index) => {
+            const isHovered = hoveredIndex === index;
+
+            return (
+              <div
+                key={index}
+                ref={(el) => {
+                  if (el) itemsRef.current[index] = el;
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="group relative aspect-square overflow-hidden cursor-pointer bg-gray-100"
+              >
+                {/* Media Content */}
+                {item.type === 'image' ? (
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="relative w-full h-full">
+                    <video
+                      className="w-full h-full object-cover"
+                      poster={item.poster}
+                      loop
+                      muted
+                      playsInline
+                      onMouseEnter={(e) => e.currentTarget.play()}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.pause();
+                        e.currentTarget.currentTime = 0;
+                      }}
+                    >
+                      <source src={item.src} type="video/mp4" />
+                    </video>
+                    {/* Play Icon */}
+                    <div className="absolute top-3 right-3 z-10">
+                      <Play className="w-5 h-5 text-white drop-shadow-lg fill-current" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Hover Overlay - Instagram Style */}
+                <div
+                  className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-300 ${
+                    isHovered ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <div className="text-center text-white">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Heart className="w-6 h-6 fill-current" />
+                      <span className="text-lg font-bold">{item.likes}</span>
+                    </div>
+                    <p className="text-sm font-medium px-4">{item.alt}</p>
+                  </div>
+                </div>
+
+                {/* Instagram Corner Icon */}
+                <div className="absolute top-3 left-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <Instagram className="w-5 h-5 text-white drop-shadow-lg" />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -114,7 +114,7 @@ const WhyChooseUs = () => {
   const activeFeature = features[activeIndex];
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-white overflow-hidden">
+    <section ref={sectionRef} className="relative py-20 bg-white overflow-hidden">
       {/* Rimigo Crop Banner - Subtle */}
       <div className="absolute right-0 w-[500px] h-48 opacity-5 z-0" style={{ top: '100px' }}>
         <img

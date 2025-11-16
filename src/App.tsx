@@ -4,9 +4,7 @@ import TopDestinations from './components/TopDestinations';
 import ParallaxShowcase from './components/ParallaxShowcase';
 import WhyChooseUs from './components/WhyChooseUs';
 import TravelPackages from './components/TravelPackages';
-import Testimonials from './components/Testimonials';
 import ImageCollage from './components/ImageCollage';
-import ContactCTA from './components/ContactCTA';
 import Footer from './components/Footer';
 
 function App() {
@@ -18,9 +16,7 @@ function App() {
       <ParallaxShowcase />
       <WhyChooseUs />
       <TravelPackages />
-      <Testimonials />
-      <ImageCollage />
-      <ContactCTA />
+      <ImageCollage/>
       <Footer />
     </div>
   );

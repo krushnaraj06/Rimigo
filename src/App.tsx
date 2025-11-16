@@ -1,24 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import TopDestinations from './components/TopDestinations';
-import ParallaxShowcase from './components/ParallaxShowcase';
-import WhyChooseUs from './components/WhyChooseUs';
-import TravelPackages from './components/TravelPackages';
-import ImageCollage from './components/ImageCollage';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Santorini from './pages/Santorini';
+import Dubai from './pages/Dubai';
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <HeroSection />
-      <TopDestinations />
-      <ParallaxShowcase />
-      <WhyChooseUs />
-      <TravelPackages />
-      <ImageCollage/>
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/santorini" element={<Santorini />} />
+          <Route path="/dubai" element={<Dubai />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

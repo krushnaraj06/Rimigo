@@ -3,17 +3,20 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin, ArrowRight, Palmtree, Star, MapPin, DollarSign } from 'lucide-react';
 import RimigoWhiteLogo from '../assets/RimigoWhiteLogo.png';
+import Globe4 from '../assets/Globe4.png';
 import ImageCollage from './ImageCollage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-<ImageCollage/>
+
 
 const Footer = () => {
   const statsRef = useRef<HTMLDivElement>(null);
+  const globeRef = useRef<HTMLImageElement>(null);
   const [counters, setCounters] = useState({ vacations: 0, rating: 0, countries: 0, savings: 0 });
 
   useEffect(() => {
+    // Stats counter animation
     if (statsRef.current) {
       ScrollTrigger.create({
         trigger: statsRef.current,
@@ -38,14 +41,75 @@ const Footer = () => {
         },
       });
     }
+
+    // Globe slide-up animation
+    if (globeRef.current) {
+      gsap.fromTo(
+        globeRef.current,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: globeRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
   }, []);
 
 
   return (
-    <footer className="relative bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-travel-sky/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-travel-coral/5 rounded-full blur-3xl" />
+    <>
+      {/* Image Collage Section */}
+      <ImageCollage />
+
+      {/* Globe Image Section with Slogan */}
+      <div className="relative bg-white">
+        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
+          {/* Left Side - Slogan */}
+          <div className="flex-1 max-w-2xl">
+            <div className="mb-3">
+              <span className="text-sm uppercase tracking-[0.3em] text-gray-500 font-semibold">
+                Your Adventure Awaits
+              </span>
+            </div>
+            <h2 className="text-6xl md:text-7xl lg:text-8xl font-display leading-tight mb-6">
+              <span className="block text-gray-400 font-light italic mb-2">
+                Wander
+              </span>
+              <span className="block font-cursive text-7xl md:text-8xl lg:text-9xl text-purple-600 mb-2" style={{ letterSpacing: '0.02em' }}>
+                Explore
+              </span>
+              <span className="block text-travel-charcoal font-bold">
+                Experience
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600 font-light max-w-md leading-relaxed">
+              Every destination tells a story. Let yours begin with Rimigo.
+            </p>
+          </div>
+
+          {/* Right Side - Globe */}
+          <div className="flex-shrink-0">
+            <img 
+              ref={globeRef}
+              src={Globe4}
+              alt="Globe"
+              className="w-[600px] h-auto"
+            />
+          </div>
+        </div>
+      </div>
+
+      <footer className="relative bg-black text-white overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-travel-sky/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-travel-coral/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8">
         {/* Stats Section */}
@@ -256,6 +320,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 

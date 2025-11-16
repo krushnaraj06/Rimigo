@@ -38,18 +38,18 @@ const ImageCollage = () => {
       gsap.fromTo(
         item,
         {
-          scale: 0.8,
+          scale: 0.95,
           opacity: 0,
         },
         {
           scale: 1,
           opacity: 1,
-          duration: 0.6,
-          delay: index * 0.05,
+          duration: 0.4,
+          delay: index * 0.03,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: item,
-            start: 'top 90%',
+            start: 'top 92%',
             toggleActions: 'play none none none',
           },
         }

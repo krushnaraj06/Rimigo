@@ -52,16 +52,16 @@ const WhyChooseUs = () => {
       if (!item) return;
       gsap.fromTo(
         item,
-        { x: -40, opacity: 0 },
+        { x: -20, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: 0.3 + index * 0.15,
+          duration: 0.5,
+          delay: 0.1 + index * 0.08,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: item,
-            start: 'top 85%',
+            start: 'top 90%',
             toggleActions: 'play none none none',
           },
         }

@@ -37,20 +37,20 @@ const TravelPackages = () => {
       gsap.fromTo(
         card,
         {
-          y: 100,
+          y: 50,
           opacity: 0,
-          scale: 0.95,
+          scale: 0.97,
         },
         {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 1,
-          delay: index * 0.15,
-          ease: 'power3.out',
+          duration: 0.6,
+          delay: index * 0.08,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: card,
-            start: 'top 90%',
+            start: 'top 92%',
             toggleActions: 'play none none none',
           },
         }

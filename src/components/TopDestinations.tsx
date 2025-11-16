@@ -18,22 +18,20 @@ const TopDestinations = () => {
       gsap.fromTo(
         card,
         {
-          scale: 0.9,
+          scale: 0.95,
           opacity: 0,
-          y: 60,
-          rotateY: -15,
+          y: 40,
         },
         {
           scale: 1,
           opacity: 1,
           y: 0,
-          rotateY: 0,
-          duration: 1,
-          delay: index * 0.15,
-          ease: 'power3.out',
+          duration: 0.6,
+          delay: index * 0.08,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: card,
-            start: 'top 85%',
+            start: 'top 90%',
             toggleActions: 'play none none none',
           },
         }

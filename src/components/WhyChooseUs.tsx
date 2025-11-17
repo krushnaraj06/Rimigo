@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, Shield, Users, Clock, ArrowRight, Sparkles } from 'lucide-react';
-import RimigoCrop from '../assets/Rimigocrop.png';
+import RimigoCrop from '../assets/RimigoCrop.png';
 
 gsap.registerPlugin(ScrollTrigger);
 

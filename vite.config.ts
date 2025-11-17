@@ -16,7 +16,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/Rimigo/',
+  base: './',
   build: {
     rollupOptions: {
       output: {

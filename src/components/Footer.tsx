@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin, ArrowRight, Palmtree, Star, MapPin, DollarSign } from 'lucide-react';
 import RimigoWhiteLogo from '../assets/RimigoWhiteLogo.png';
 import ImageCollage from './ImageCollage';
-import Globe4 from '../assets/Globe4.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,7 +97,7 @@ const Footer = () => {
           <div className="flex-shrink-0">
             <img 
               ref={globeRef}
-              src={Globe4}
+              
               alt="Globe"
               className="w-[600px] h-auto"
             />

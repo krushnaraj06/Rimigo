@@ -106,7 +106,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <footer className="relative bg-black text-white overflow-hidden">
+      <footer id="contact" className="relative bg-black text-white overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-travel-sky/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-travel-coral/5 rounded-full blur-3xl" />

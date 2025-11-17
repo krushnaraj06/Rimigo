@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import RimigoLogo from '../assets/Rimigo-logo.png';
 
@@ -8,6 +8,8 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [destinationsOpen, setDestinationsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,41 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDestinationsOpen(false);
+      }
+    };
+
+    if (destinationsOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [destinationsOpen]);
+
+  const handleNavClick = (sectionId: string) => {
+    // If not on home page, navigate to home first
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
 
   const destinations = [
     { name: 'Santorini', path: '/santorini' },
@@ -76,12 +113,9 @@ const Navbar = () => {
               </Link>
 
               {/* Destinations Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setDestinationsOpen(true)}
-                onMouseLeave={() => setDestinationsOpen(false)}
-              >
+              <div ref={dropdownRef} className="relative">
                 <button
+                  onClick={() => setDestinationsOpen(!destinationsOpen)}
                   className={`flex items-center gap-1 font-medium transition-all duration-300 hover:scale-105 ${
                     scrolled
                       ? 'text-gray-700 hover:text-rimigo-primary'
@@ -99,6 +133,7 @@ const Navbar = () => {
                       <Link
                         key={dest.path}
                         to={dest.path}
+                        onClick={() => setDestinationsOpen(false)}
                         className={`block px-6 py-3 transition-all duration-200 ${
                           isActive(dest.path)
                             ? 'bg-rimigo-primary/10 text-rimigo-primary font-semibold'
@@ -112,8 +147,8 @@ const Navbar = () => {
                 )}
               </div>
 
-              <a
-                href="#packages"
+              <button
+                onClick={() => handleNavClick('packages')}
                 className={`font-medium transition-all duration-300 hover:scale-105 ${
                   scrolled
                     ? 'text-gray-700 hover:text-rimigo-primary'
@@ -121,10 +156,10 @@ const Navbar = () => {
                 }`}
               >
                 Packages
-              </a>
+              </button>
 
-              <a
-                href="#about"
+              <button
+                onClick={() => handleNavClick('about')}
                 className={`font-medium transition-all duration-300 hover:scale-105 ${
                   scrolled
                     ? 'text-gray-700 hover:text-rimigo-primary'
@@ -132,10 +167,10 @@ const Navbar = () => {
                 }`}
               >
                 About
-              </a>
+              </button>
 
-              <a
-                href="#contact"
+              <button
+                onClick={() => handleNavClick('contact')}
                 className={`font-medium transition-all duration-300 hover:scale-105 ${
                   scrolled
                     ? 'text-gray-700 hover:text-rimigo-primary'
@@ -143,18 +178,18 @@ const Navbar = () => {
                 }`}
               >
                 Contact
-              </a>
+              </button>
             </div>
 
             {/* CTA Button */}
             <button
               className={`hidden lg:block px-6 py-2.5 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl ${
                 scrolled
-                  ? 'bg-gradient-to-r from-rimigo-primary to-rimigo-secondary text-white'
-                  : 'bg-white text-rimigo-primary hover:bg-rimigo-primary hover:text-white'
+                  ? 'bg-gradient-to-r from-rimigo-primary to-rimigo-secondary text-Black'
+                  : 'bg-white text-rimigo-primary hover:bg-rimigo-primary hover:text-Black'
               }`}
             >
-              Book Now
+              Login
             </button>
 
             {/* Mobile Menu Button */}
@@ -215,29 +250,35 @@ const Navbar = () => {
                 ))}
               </div>
 
-              <a
-                href="#packages"
-                className="block py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  handleNavClick('packages');
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
               >
                 Packages
-              </a>
+              </button>
 
-              <a
-                href="#about"
-                className="block py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  handleNavClick('about');
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
               >
                 About
-              </a>
+              </button>
 
-              <a
-                href="#contact"
-                className="block py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  handleNavClick('contact');
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 px-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
               >
                 Contact
-              </a>
+              </button>
 
               <button className="w-full mt-4 bg-gradient-to-r from-rimigo-primary to-rimigo-secondary text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl transition-all">
                 Book Now

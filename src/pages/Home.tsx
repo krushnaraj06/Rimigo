@@ -9,9 +9,13 @@ const Home = () => {
     <>
       <HeroSection />
       <TopDestinations />
-      <ParallaxShowcase />
+      <div id="about">
+        <ParallaxShowcase />
+      </div>
       <WhyChooseUs />
-      <TravelPackages />
+      <div id="packages">
+        <TravelPackages />
+      </div>
     </>
   );
 };

@@ -1,13 +1,8 @@
-/*
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  X-Content-Type-Options: nosniff
-
 /assets/*.js
-  Content-Type: application/javascript
+  Content-Type: application/javascript; charset=utf-8
 
 /assets/*.css
-  Content-Type: text/css
+  Content-Type: text/css; charset=utf-8
 
 /assets/*.png
   Content-Type: image/png
@@ -15,5 +10,12 @@
 /assets/*.jpg
   Content-Type: image/jpeg
 
+/assets/*.avif
+  Content-Type: image/avif
+
 /assets/*.svg
   Content-Type: image/svg+xml
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff

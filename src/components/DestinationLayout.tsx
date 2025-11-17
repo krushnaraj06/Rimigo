@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Sparkles, ArrowRight, Heart } from 'lucide-react';
@@ -96,6 +97,24 @@ const DestinationLayout = ({
   const statsRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement[]>([]);
   const [hoveredExpIndex, setHoveredExpIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
+
+  const scrollToPackages = () => {
+    navigate('/');
+    setTimeout(() => {
+      const element = document.getElementById('packages');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
+  const scrollToGallery = () => {
+    const element = document.getElementById('gallery');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -186,11 +205,18 @@ const DestinationLayout = ({
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 px-8">
-          <button className={`group px-10 py-5 ${ctaGradient} text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3`}>
+          <button 
+            onClick={scrollToPackages}
+            className={`group px-10 py-5 ${ctaGradient} text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3`}
+          >
             <span>Explore Packages</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <button className={`px-10 py-5 bg-white border-2 text-lg font-semibold hover:text-white transition-all duration-300`} style={{ borderColor: titleColor, color: titleColor }}>
+          <button 
+            onClick={scrollToGallery}
+            className={`px-10 py-5 bg-white border-2 text-lg font-semibold hover:text-white transition-all duration-300`} 
+            style={{ borderColor: titleColor, color: titleColor }}
+          >
             View Gallery
           </button>
         </div>

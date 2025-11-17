@@ -154,7 +154,7 @@ const ImageCollage = () => {
   ];
 
   return (
-    <section className="relative py- bg-white overflow-hidden">
+    <section id="gallery" className="relative py- bg-white overflow-hidden">
       <div className="relative z-10">
         {/* Header */}
         <div ref={headerRef} className="mb-12 text-center px-8 mt-[60px]">

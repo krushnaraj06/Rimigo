@@ -8,7 +8,9 @@ const Home = () => {
   return (
     <>
       <HeroSection />
-      <TopDestinations />
+      <div id="destinations">
+        <TopDestinations />
+      </div>
       <div id="about">
         <ParallaxShowcase />
       </div>

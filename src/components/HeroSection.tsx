@@ -9,6 +9,20 @@ const HeroSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const travellerRef = useRef<HTMLDivElement>(null);
 
+  const scrollToDestinations = () => {
+    const element = document.querySelector('#destinations');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const scrollToGallery = () => {
+    const element = document.querySelector('#gallery');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   useEffect(() => {
     // Scroll fade-out
     const handleScroll = () => {
@@ -106,13 +120,19 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="bg-gradient-to-r from-travel-sky to-travel-ocean text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+              <button 
+                onClick={scrollToDestinations}
+                className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
+              >
                 Explore Destinations
               </button>
 
-              <button className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 border border-white/30">
+              <button 
+                onClick={scrollToGallery}
+                className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 border border-white/30"
+              >
                 <Play className="w-5 h-5 fill-current" />
-                Watch Travel Video
+                View Gallery
               </button>
             </div>
 

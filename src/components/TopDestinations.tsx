@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, ArrowRight, Star } from 'lucide-react';
-import RimigoCrop from '../assets/Rimigocrop.png';
+import RimigoCrop from '../assets/RimigoCrop.png';
 
 gsap.registerPlugin(ScrollTrigger);
 

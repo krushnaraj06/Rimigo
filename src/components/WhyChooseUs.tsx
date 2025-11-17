@@ -187,9 +187,10 @@ const WhyChooseUs = () => {
                           }`}
                         >
                           <Icon
-                            className={`w-7 h-7 transition-colors duration-500 ${
-                              isActive ? 'text-white' : 'text-gray-600'
+                            className={`w-7 h-7 transition-all duration-500 ${
+                              isActive ? 'text-black' : 'text-gray-600 group-hover:text-gray-700'
                             }`}
+                            strokeWidth={isActive ? 2.5 : 2}
                           />
                         </div>
 
@@ -228,14 +229,6 @@ const WhyChooseUs = () => {
                   </div>
                 );
               })}
-            </div>
-
-            {/* CTA */}
-            <div className="mt-12 pt-12 border-t border-gray-200">
-              <button className="group flex items-center gap-3 px-8 py-4 bg-travel-charcoal text-white font-semibold hover:bg-gradient-to-r hover:from-travel-sky hover:to-travel-ocean transition-all duration-300 hover:shadow-xl">
-                <span>Discover More</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
           </div>
         </div>

@@ -1,95 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, ArrowRight, Heart } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { Sparkles, ArrowRight, Heart, Mountain, Train, Snowflake, Watch } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Experience {
-  image: string;
-  title: string;
-  subtitle: string;
-  description: string;
-}
-
-interface Stat {
-  icon: LucideIcon;
-  iconColor: string;
-  number: string;
-  label: string;
-  accentColor: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-}
-
-interface DestinationLayoutProps {
-  // Hero Section
-  badge: string;
-  badgeColor: string;
-  heroImage: string;
-  heroImageAlt: string;
-  title: string;
-  titleColor: string;
-  subtitle: string;
-  
-  // About Section
-  aboutLabel: string;
-  aboutTitle: string;
-  aboutTitleItalic: string;
-  aboutParagraph1: string;
-  aboutParagraph2: string;
-  aboutImage: string;
-  aboutImageAlt: string;
-  
-  // Stats Section
-  statsLabel: string;
-  statsTitle: string;
-  statsTitleHighlight: string;
-  statsDescription: string;
-  stats: Stat[];
-  
-  // Experiences Section
-  experiences: Experience[];
-  experiencesDescription: string;
-  
-  // CTA Section
-  ctaTitle: string;
-  ctaDescription: string;
-  ctaImages: string[];
-  ctaRating: string;
-  ctaGradient: string;
-}
-
-const DestinationLayout = ({
-  badge,
-  badgeColor,
-  heroImage,
-  heroImageAlt,
-  title,
-  titleColor,
-  subtitle,
-  aboutLabel,
-  aboutTitle,
-  aboutTitleItalic,
-  aboutParagraph1,
-  aboutParagraph2,
-  aboutImage,
-  aboutImageAlt,
-  statsLabel,
-  statsTitle,
-  statsTitleHighlight,
-  statsDescription,
-  stats,
-  experiences,
-  experiencesDescription,
-  ctaTitle,
-  ctaDescription,
-  ctaImages,
-  ctaRating,
-  ctaGradient,
-}: DestinationLayoutProps) => {
+const Switzerland = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -146,51 +62,159 @@ const DestinationLayout = ({
     });
   }, []);
 
+  const destinationData = {
+    badge: 'Swiss Alps',
+    badgeColor: 'bg-gradient-to-r from-sky-50 to-sky-100 text-sky-700 border-sky-200',
+    heroImage: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200&q=80',
+    heroImageAlt: 'Switzerland',
+    title: 'SWITZERLAND',
+    titleColor: '#0284c7',
+    subtitle: 'Where majestic peaks meet pristine alpine beauty',
+
+    aboutLabel: 'Experience',
+    aboutTitle: 'Wonderland',
+    aboutTitleItalic: 'An Alpine',
+    aboutParagraph1: 'Switzerland, nestled in the heart of Europe, is a land of breathtaking natural beauty and timeless elegance. From the snow-capped peaks of the Alps to the crystal-clear lakes and charming villages, this alpine paradise offers an unparalleled blend of outdoor adventure and sophisticated culture.',
+    aboutParagraph2: 'Experience world-class skiing in Zermatt, cruise pristine lakes in Lucerne, ride scenic mountain railways, and indulge in Swiss chocolate and cheese. Switzerland is where nature perfection meets Swiss precision and hospitality.',
+    aboutImage: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+    aboutImageAlt: 'Swiss Alps',
+
+    statsLabel: 'Alpine Highlights',
+    statsTitle: 'Explore',
+    statsTitleHighlight: 'Switzerland',
+    statsDescription: 'A destination where natural beauty meets Swiss excellence',
+    stats: [
+      {
+        icon: Mountain,
+        iconColor: '#0284c7',
+        number: '48',
+        label: 'Alpine Peaks',
+        accentColor: '#0284c7',
+        description: 'Majestic mountains over 4000 meters high',
+        image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+        imageAlt: 'Swiss Mountains',
+      },
+      {
+        icon: Train,
+        iconColor: '#0369a1',
+        number: '5000km',
+        label: 'Railway Network',
+        accentColor: '#0369a1',
+        description: 'Scenic train routes through the Alps',
+        image: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80',
+        imageAlt: 'Swiss Train',
+      },
+      {
+        icon: Snowflake,
+        iconColor: '#38bdf8',
+        number: '200+',
+        label: 'Ski Resorts',
+        accentColor: '#38bdf8',
+        description: 'World-class winter sports destinations',
+        image: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=80',
+        imageAlt: 'Swiss Skiing',
+      },
+      {
+        icon: Watch,
+        iconColor: '#075985',
+        number: '1500+',
+        label: 'Lakes',
+        accentColor: '#075985',
+        description: 'Crystal-clear alpine and glacial lakes',
+        image: 'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=800&q=80',
+        imageAlt: 'Swiss Lake',
+      },
+    ],
+
+    experiences: [
+      {
+        image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200&q=80',
+        title: 'Matterhorn',
+        subtitle: 'Iconic Peak',
+        description: 'Marvel at one of the most photographed mountains in the world',
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&q=80',
+        title: 'Glacier Express',
+        subtitle: 'Scenic Railway',
+        description: 'Journey through the Alps on the world slowest express train',
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=1200&q=80',
+        title: 'Alpine Skiing',
+        subtitle: 'Winter Sports',
+        description: 'Experience world-class slopes and pristine powder snow',
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=1200&q=80',
+        title: 'Lake Geneva',
+        subtitle: 'Lakeside Beauty',
+        description: 'Explore charming towns along Europe largest alpine lake',
+      },
+    ],
+    experiencesDescription: 'Discover the alpine wonders that make Switzerland a year-round paradise',
+
+    ctaTitle: 'Swiss Escape',
+    ctaDescription: 'Let our travel experts craft your perfect Swiss adventure. From luxury chalets in St. Moritz to scenic train journeys and alpine hiking trails, we create unforgettable experiences in the heart of the Alps.',
+    ctaImages: [
+      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+      'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80',
+      'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=80',
+      'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=800&q=80',
+    ],
+    ctaRating: '5.0',
+    ctaGradient: 'bg-gradient-to-br from-sky-900 via-sky-800 to-sky-900',
+  };
+
+  const stats = destinationData.stats;
+  const experiences = destinationData.experiences;
+
   return (
     <div className="bg-white">
-      {/* Hero Section */}
+      {/* Hero Section - Custom for Switzerland with smaller title */}
       <div className="relative bg-white pt-20 pb-24">
         <div ref={badgeRef} className="text-center mb-10">
-          <span className={`px-8 py-3 ${badgeColor} text-sm font-bold uppercase tracking-[0.3em] border inline-flex items-center gap-2 shadow-lg`}>
+          <span className={`px-8 py-3 ${destinationData.badgeColor} text-sm font-bold uppercase tracking-[0.3em] border inline-flex items-center gap-2 shadow-lg`}>
             <Sparkles className="w-4 h-4" />
-            {badge}
+            {destinationData.badge}
           </span>
         </div>
 
         <div className="flex justify-center px-8 mb-16">
           <img
             ref={imageRef}
-            src={heroImage}
-            alt={heroImageAlt}
+            src={destinationData.heroImage}
+            alt={destinationData.heroImageAlt}
             className="w-full max-w-5xl h-[300px] object-cover shadow-2xl hover:shadow-3xl transition-shadow duration-500"
           />
         </div>
 
+        {/* Title for Switzerland */}
         <div className="relative z-20 w-full px-8 -mt-32 mb-10">
           <h1
             ref={titleRef}
-            className="text-[8rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] font-black text-center leading-none"
+            className="text-[7rem] md:text-[10rem] lg:text-[14rem] xl:text-[16rem] font-black text-center leading-none"
             style={{
               fontFamily: 'Impact, "Arial Black", sans-serif',
               letterSpacing: '-0.02em',
-              color: titleColor,
-              textShadow: `0 10px 40px ${titleColor}50`,
+              color: destinationData.titleColor,
+              textShadow: `0 10px 40px ${destinationData.titleColor}50`,
             }}
           >
-            {title}
+            {destinationData.title}
           </h1>
         </div>
 
         <div className="text-center mb-8 px-8">
-          <p className="text-2xl md:text-3xl text-gray-600 font-light italic max-w-3xl mx-auto">{subtitle}</p>
+          <p className="text-2xl md:text-3xl text-gray-600 font-light italic max-w-3xl mx-auto">{destinationData.subtitle}</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 px-8">
-          <button className={`group px-10 py-5 ${ctaGradient} text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3`}>
+          <button className={`group px-10 py-5 ${destinationData.ctaGradient} text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3`}>
             <span>Explore Packages</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <button className={`px-10 py-5 bg-white border-2 text-lg font-semibold hover:text-white transition-all duration-300`} style={{ borderColor: titleColor, color: titleColor }}>
+          <button className={`px-10 py-5 bg-white border-2 text-lg font-semibold hover:text-white transition-all duration-300`} style={{ borderColor: destinationData.titleColor, color: destinationData.titleColor }}>
             View Gallery
           </button>
         </div>
@@ -202,23 +226,23 @@ const DestinationLayout = ({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-0.5" style={{ backgroundColor: titleColor }} />
-                <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">{aboutLabel}</span>
+                <div className="w-12 h-0.5" style={{ backgroundColor: destinationData.titleColor }} />
+                <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">{destinationData.aboutLabel}</span>
               </div>
               <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-6 leading-tight">
-                <span className="italic font-light">{aboutTitleItalic}</span>
+                <span className="italic font-light">{destinationData.aboutTitleItalic}</span>
                 <br />
-                {aboutTitle}
+                {destinationData.aboutTitle}
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">{aboutParagraph1}</p>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">{aboutParagraph2}</p>
-              <button className="group flex items-center gap-3 font-semibold hover:gap-5 transition-all duration-300" style={{ color: titleColor }}>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">{destinationData.aboutParagraph1}</p>
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">{destinationData.aboutParagraph2}</p>
+              <button className="group flex items-center gap-3 font-semibold hover:gap-5 transition-all duration-300" style={{ color: destinationData.titleColor }}>
                 <span>Read Full Story</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
             <div className="relative h-[600px]">
-              <img src={aboutImage} alt={aboutImageAlt} className="absolute inset-0 w-full h-full object-cover shadow-2xl" />
+              <img src={destinationData.aboutImage} alt={destinationData.aboutImageAlt} className="absolute inset-0 w-full h-full object-cover shadow-2xl" />
             </div>
           </div>
         </div>
@@ -229,15 +253,15 @@ const DestinationLayout = ({
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-20">
             <div className="inline-block mb-6">
-              <span className="text-sm font-semibold uppercase tracking-[0.3em] border-b-2 pb-2" style={{ color: titleColor, borderColor: titleColor }}>
-                {statsLabel}
+              <span className="text-sm font-semibold uppercase tracking-[0.3em] border-b-2 pb-2" style={{ color: destinationData.titleColor, borderColor: destinationData.titleColor }}>
+                {destinationData.statsLabel}
               </span>
             </div>
             <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-6">
-              <span className="italic font-light">{statsTitle}</span>{' '}
-              <span style={{ color: titleColor }}>{statsTitleHighlight}</span>
+              <span className="italic font-light">{destinationData.statsTitle}</span>{' '}
+              <span style={{ color: destinationData.titleColor }}>{destinationData.statsTitleHighlight}</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">{statsDescription}</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">{destinationData.statsDescription}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -272,7 +296,7 @@ const DestinationLayout = ({
         <div className="relative z-10 max-w-7xl mx-auto px-8">
           <div className="mb-16">
             <div className="flex items-center gap-4 mb-4">
-              <Sparkles className="w-6 h-6" style={{ color: titleColor }} />
+              <Sparkles className="w-6 h-6" style={{ color: destinationData.titleColor }} />
               <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">Curated Activities</span>
             </div>
             <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-4 leading-none">
@@ -280,7 +304,7 @@ const DestinationLayout = ({
               <br />
               <span style={{ color: '#6C63FF' }}>Experiences</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl">{experiencesDescription}</p>
+            <p className="text-lg text-gray-600 max-w-2xl">{destinationData.experiencesDescription}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -346,7 +370,7 @@ const DestinationLayout = ({
       <div ref={(el) => { if (el) sectionsRef.current[3] = el; }} className="relative bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className={`relative ${ctaGradient} px-12 py-24 lg:py-32 flex items-center`}>
+            <div className={`relative ${destinationData.ctaGradient} px-12 py-24 lg:py-32 flex items-center`}>
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
@@ -361,10 +385,10 @@ const DestinationLayout = ({
                 <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
                   <span className="italic font-light">Your Dream</span>
                   <br />
-                  <span>{ctaTitle}</span>
+                  <span>{destinationData.ctaTitle}</span>
                 </h2>
 
-                <p className="text-xl text-white/90 mb-8 leading-relaxed">{ctaDescription}</p>
+                <p className="text-xl text-white/90 mb-8 leading-relaxed">{destinationData.ctaDescription}</p>
 
                 <div className="space-y-4 mb-10">
                   {['Personalized Itineraries', 'Exclusive Access', '24/7 Support'].map((feature, idx) => (
@@ -385,11 +409,11 @@ const DestinationLayout = ({
                 </div>
 
                 <div className="flex flex-wrap gap-4">
-                  <button className="group px-10 py-5 bg-white font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 flex items-center gap-3 shadow-xl" style={{ color: titleColor }}>
+                  <button className="group px-10 py-5 bg-white font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 flex items-center gap-3 shadow-xl" style={{ color: destinationData.titleColor }}>
                     <span>Plan Your Trip</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
-                  <button className="px-10 py-5 bg-transparent border-2 border-white text-white font-semibold text-lg hover:bg-white transition-all duration-300 flex items-center gap-3" style={{ color: 'white' }}>
+                  <button className="px-10 py-5 bg-transparent border-2 border-white text-white font-semibold text-lg hover:bg-white transition-all duration-300 flex items-center gap-3">
                     <Heart className="w-5 h-5" />
                     <span>Save for Later</span>
                   </button>
@@ -399,16 +423,16 @@ const DestinationLayout = ({
 
             <div className="relative h-[600px] lg:h-auto">
               <div className="grid grid-cols-2 gap-4 h-full p-4">
-                {ctaImages.map((img, idx) => (
+                {destinationData.ctaImages.map((img, idx) => (
                   <div key={idx} className="relative overflow-hidden group">
-                    <img src={img} alt={`${title} ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={img} alt={`Switzerland ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 ))}
               </div>
 
               <div className="absolute top-8 right-8 bg-white px-6 py-4 shadow-2xl">
-                <div className="text-3xl font-black mb-1" style={{ color: titleColor }}>{ctaRating}★</div>
+                <div className="text-3xl font-black mb-1" style={{ color: destinationData.titleColor }}>{destinationData.ctaRating}★</div>
                 <div className="text-xs font-semibold uppercase tracking-wider text-gray-600">Traveler Rating</div>
               </div>
             </div>
@@ -419,4 +443,4 @@ const DestinationLayout = ({
   );
 };
 
-export default DestinationLayout;
+export default Switzerland;

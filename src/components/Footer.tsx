@@ -3,8 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin, ArrowRight, Palmtree, Star, MapPin, DollarSign } from 'lucide-react';
 import RimigoWhiteLogo from '../assets/RimigoWhiteLogo.png';
-import Globe4 from '../assets/Globe4.png';
 import ImageCollage from './ImageCollage';
+import Globe4 from '../assets/Globe4.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,7 +89,7 @@ const Footer = () => {
                 Experience
               </span>
             </h2>
-            <p className="text-lg text-gray-600 font-light max-w-md leading-relaxed">
+            <p className="text-200 text-gray-600 font-light max-w-md leading-relaxed">
               Every destination tells a story. Let yours begin with Rimigo.
             </p>
           </div>

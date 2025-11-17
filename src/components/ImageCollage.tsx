@@ -157,7 +157,7 @@ const ImageCollage = () => {
     <section className="relative py- bg-white overflow-hidden">
       <div className="relative z-10">
         {/* Header */}
-        <div ref={headerRef} className="mb-12 text-center px-8">
+        <div ref={headerRef} className="mb-12 text-center px-8 mt-[60px]">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Instagram className="w-6 h-6 text-travel-sky" />
             <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">
@@ -166,7 +166,7 @@ const ImageCollage = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-4 leading-none">
             <span className="italic font-light">Captured</span>{' '}
-            <span className="bg-gradient-to-r from-travel-sky via-purple-600 to-travel-coral bg-clip-text text-transparent">
+            <span style={{ color: '#6C63FF' }}>
               Moments
             </span>
           </h2>

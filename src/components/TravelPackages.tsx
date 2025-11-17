@@ -178,7 +178,7 @@ const TravelPackages = () => {
           <h2 className="text-5xl md:text-6xl font-display font-bold text-travel-charcoal mb-4 leading-none">
             <span className="italic font-light">Featured</span>
             <br />
-            <span className="bg-gradient-to-r from-travel-sky via-purple-600 to-travel-coral bg-clip-text text-transparent">
+            <span style={{ color: '#6C63FF' }}>
               Travel Packages
             </span>
           </h2>

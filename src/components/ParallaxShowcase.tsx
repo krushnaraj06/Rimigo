@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronLeft, ChevronRight, TrendingUp, Star, Users, MapPin, ArrowRight } from 'lucide-react';
-import LuxuryTraveller from '../assets/LuxuryTraveller.png';
+import LuxuryTraveller from '../assets/LuxuryTraveller.avif';
 import ChooseYourStyle from '../assets/ChooseYourStyle.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -162,7 +162,7 @@ const ParallaxShowcase = () => {
                 </defs>
               </svg>
             </span>{' '}
-            <span className="bg-gradient-to-r from-travel-sky via-purple-500 to-travel-coral bg-clip-text text-transparent">
+            <span style={{ color: '#6C63FF' }}>
               Style
             </span>
           </h2>

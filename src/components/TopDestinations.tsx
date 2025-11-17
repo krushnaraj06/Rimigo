@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, ArrowRight, Star } from 'lucide-react';
@@ -8,8 +9,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TopDestinations = () => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const handleScrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: 400,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   useEffect(() => {
     cardsRef.current.forEach((card, index) => {
@@ -47,6 +57,7 @@ const TopDestinations = () => {
       rating: 4.9,
       tours: 120,
       badge: 'Popular',
+      link: '/santorini',
     },
     {
       name: 'Bali',
@@ -55,6 +66,7 @@ const TopDestinations = () => {
       rating: 4.8,
       tours: 95,
       badge: 'Trending',
+      link: '/bali',
     },
     {
       name: 'Switzerland',
@@ -63,6 +75,7 @@ const TopDestinations = () => {
       rating: 4.9,
       tours: 78,
       badge: 'Premium',
+      link: '/switzerland',
     },
     {
       name: 'Paris',
@@ -71,6 +84,7 @@ const TopDestinations = () => {
       rating: 4.7,
       tours: 150,
       badge: 'Romantic',
+      link: '/paris',
     },
     {
       name: 'Dubai',
@@ -79,6 +93,7 @@ const TopDestinations = () => {
       rating: 4.8,
       tours: 88,
       badge: 'Luxury',
+      link: '/dubai',
     },
     {
       name: 'Maldives',
@@ -87,12 +102,12 @@ const TopDestinations = () => {
       rating: 5.0,
       tours: 65,
       badge: 'Paradise',
+      link: '/maldives',
     },
   ];
 
   return (
     <section
-      ref={sectionRef}
       className="relative py-32 px-8 bg-gradient-to-b from-white via-travel-gray/30 to-white overflow-hidden"
     >
       {/* Rimigo Crop Banner - Left Top */}
@@ -117,7 +132,7 @@ const TopDestinations = () => {
             <span className="italic">Top</span> Destinations{' '}
             <span className="relative inline-block">
               You'll{' '}
-              <span className="bg-gradient-to-r from-travel-sky via-purple-800 to-travel-coral bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+              <span style={{ color: '#6C63FF' }}>
                 Love
               </span>
               <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none">
@@ -139,7 +154,7 @@ const TopDestinations = () => {
 
         {/* Cards Horizontal Scroll */}
         <div className="relative mb-16">
-          <div className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory">
+          <div ref={scrollContainerRef} className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory">
             {destinations.map((destination, index) => (
               <div
                 key={index}
@@ -190,7 +205,7 @@ const TopDestinations = () => {
                 </div>
 
                 {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 transform transition-transform duration-500 group-hover:translate-y-0">
+                <div className="absolute bottom-0 left-0 right-0 p-8 transform transition-transform duration-500 group-hover:translate-y-0 z-20">
                   <div className="flex items-center gap-2 mb-3">
                     <MapPin className="w-5 h-5 text-white" />
                     <span className="text-sm font-medium text-white/90">{destination.country}</span>
@@ -203,10 +218,13 @@ const TopDestinations = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/80">{destination.tours}+ Tours Available</span>
 
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-white text-travel-ocean font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500 hover:bg-travel-sky hover:text-white">
+                    <Link
+                      to={destination.link}
+                      className="relative z-30 flex items-center gap-2 px-5 py-2.5 bg-white text-travel-ocean font-semibold text-sm opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500 hover:bg-travel-sky hover:text-white"
+                    >
                       Explore
                       <ArrowRight className="w-4 h-4" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
 
@@ -232,9 +250,12 @@ const TopDestinations = () => {
             ))}
           </div>
 
-          {/* Swipe Right Icon - Fixed Position */}
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20">
-            <button className="w-16 h-16 rounded-full bg-gradient-to-r from-travel-sky to-travel-ocean shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-pulse hover:animate-none">
+          {/* Swipe Right Icon - Fixed Position with pointer-events-none on container */}
+          <div className="absolute right-8 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+            <button 
+              onClick={handleScrollRight}
+              className="w-16 h-16 rounded-full bg-gradient-to-r from-travel-sky to-travel-ocean shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-pulse hover:animate-none pointer-events-auto"
+            >
               <ArrowRight className="w-8 h-8 text-white" />
             </button>
           </div>

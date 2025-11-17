@@ -16,7 +16,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: process.env.GITHUB_PAGES ? '/Rimigo/' : './',
+  base: '/Rimigo/',
   build: {
     rollupOptions: {
       output: {
